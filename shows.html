@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GBR Streaming - Shows</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <a href="index.html"><img src="logo.png" alt="GBR Streaming Logo"></a>
+  </div>
+  <nav>
+    <a href="index.html">Movies</a>
+    <a href="shows.html">Shows</a>
+    <button id="logoutBtn" onclick="logoutEarlyAccess()">Log Out</button>
+  </nav>
+</header>
+
+<main>
+  <!-- Countdown Banner -->
+  <div id="countdown-section" class="banner">
+    <h1>Shows – Coming Soon</h1>
+    <p id="countdown"></p>
+    <button onclick="earlyAccess()">Early Access</button>
+  </div>
+
+  <!-- Early Access Preview -->
+  <div id="preview-section" class="banner hidden">
+    <h1>Early Access Preview</h1>
+    <button onclick="goBack()">Close</button>
+  </div>
+
+  <!-- Shows Grid -->
+  <div class="shows-grid hidden" id="showsGrid">
+    <div class="show-card" data-page="show1.html" onclick="handleShowClick(this)">
+      <img src="placeholder1.jpg" alt="DJ Gabe: The Show">
+      <h2>DJ Gabe: The Show</h2>
+    </div>
+    <div class="show-card" data-page="show2.html" onclick="handleShowClick(this)">
+      <img src="placeholder2.jpg" alt="Cascadia">
+      <h2>Cascadia</h2>
+    </div>
+    <div class="show-card" data-page="show3.html" onclick="handleShowClick(this)">
+      <img src="placeholder3.jpg" alt="DJ Gabe: The Skits">
+      <h2>DJ Gabe: The Skits</h2>
+    </div>
+    <div class="show-card" data-page="show4.html" onclick="handleShowClick(this)">
+      <img src="placeholder4.jpg" alt="DJ Gabe: Behind-The-Scenes">
+      <h2>DJ Gabe: Behind-The-Scenes</h2>
+    </div>
+    <div class="show-card" data-page="show5.html" onclick="handleShowClick(this)">
+      <img src="placeholder5.jpg" alt="DJ Gabe: The Backstories">
+      <h2>DJ Gabe: The Backstories</h2>
+    </div>
+    <div class="show-card" data-page="show6.html" onclick="handleShowClick(this)">
+      <img src="placeholder6.jpg" alt="G Beats Records News">
+      <h2>G Beats Records News</h2>
+    </div>
+    <div class="show-card" data-page="show7.html" onclick="handleShowClick(this)">
+      <img src="placeholder7.jpg" alt="The Atlasthemaddness Show">
+      <h2>The Atlasthemaddness Show</h2>
+    </div>
+    <div class="show-card" data-page="show8.html" onclick="handleShowClick(this)">
+      <img src="placeholder8.jpg" alt="RUⱯCH: The Show">
+      <h2>RUⱯCH: The Show</h2>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2025 GBR Streaming</p>
+</footer>
+
+<script>
+// Countdown timer
+const countdownEl = document.getElementById("countdown");
+const countdownSection = document.getElementById("countdown-section");
+const previewSection = document.getElementById("preview-section");
+const showsGrid = document.getElementById("showsGrid");
+const logoutBtn = document.getElementById("logoutBtn");
+
+const releaseDate = new Date("2025-12-12T21:00:00-08:00").getTime();
+
+function updateCountdown(){
+  const now = new Date().getTime();
+  const distance = releaseDate-now;
+  const days = Math.floor(distance/(1000*60*60*24));
+  const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+  const seconds = Math.floor((distance%(1000*60))/1000);
+  countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
+
+// Early Access password prompt
+let earlyAccessUnlocked = false;
+
+function earlyAccess(){
+  const password = prompt("Enter Early Access Password:");
+  if(password==="Preview"){
+    earlyAccessUnlocked = true;
+    showPreview();
+  } else {
+    alert("Incorrect Password!");
+  }
+}
+
+function showPreview(){
+  countdownSection.classList.add("hidden");
+  previewSection.classList.remove("hidden");
+  showsGrid.classList.remove("hidden");
+  logoutBtn.style.display="inline-block";
+}
+
+function goBack(){
+  previewSection.classList.add("hidden");
+  showsGrid.classList.add("hidden");
+  countdownSection.classList.remove("hidden");
+  logoutBtn.style.display="none";
+}
+
+function logoutEarlyAccess(){
+  earlyAccessUnlocked = false;
+  goBack();
+  alert("You have logged out of Early Access.");
+}
+
+// ================= Show Card Click Handling =================
+function handleShowClick(card){
+  const page = card.getAttribute("data-page");
+  if(!earlyAccessUnlocked){
+    alert("Coming Soon!");
+  } else {
+    window.location.href = page;
+  }
+}
+
+// Initial display
+countdownSection.classList.remove("hidden");
+previewSection.classList.add("hidden");
+showsGrid.classList.add("hidden");
+logoutBtn.style.display="none";
+</script>
+
+</body>
+</html>

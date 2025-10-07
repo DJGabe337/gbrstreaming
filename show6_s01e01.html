@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Season 1, Episode 1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <a href="index.html"><img src="logo.png" alt="GBR Streaming Logo"></a>
+  </div>
+</header>
+
+<main>
+  <h1>Season 1, Episode 1</h1>
+
+  <!-- Video Player -->
+  <video id="player" controls autoplay>
+    <source src="ad.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Navigation -->
+  <div class="breadcrumb">
+    <a href="show6.html" class="nav-button">Back to Show</a>
+    <a href="shows.html" class="nav-button">Back to Shows</a>
+  </div>
+
+  <div class="episode-nav">
+    <!-- Change hrefs to match your filenames -->
+    <a href="shows.html" class="nav-button">Previous Episode</a>
+    <a href="show6_s01e02.html" class="nav-button">Next Episode</a>
+  </div>
+</main>
+
+<script>
+  // Automatically switch from ad → episode
+  const player = document.getElementById("player");
+  player.addEventListener("ended", function() {
+    player.src = "show6_s01e01.mp4"; // 👈 replace with episode file
+    player.load();
+    player.play();
+  });
+</script>
+
+</body>
+</html>
